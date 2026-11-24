@@ -1,0 +1,7 @@
+# Run the Behavioral Portfolio app:
+#   docker compose up --build
+#   -> http://localhost:8000
+services:
+  app:
+    build: ./project-a-behavioral-portfolio
+    ports: ["8000:8000"]
