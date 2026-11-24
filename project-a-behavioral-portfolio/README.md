@@ -78,24 +78,36 @@ API: `GET /api/health`, `GET /api/meta`, `GET /api/default` (precomputed, instan
 
 ### How to run
 
-**Docker (one command after building):**
+**Windows, without Docker (recommended for this checkout):** from the repository root, run:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\run-app.ps1
+```
+
+The launcher creates the backend virtual environment, installs Python dependencies, installs Node.js LTS through `winget` if needed, builds the frontend on the first run, and starts the app at http://localhost:8000. Keep the PowerShell window open while using the app; press **Ctrl+C** there to stop it.
+
+**Docker (optional):**
 
 ```bash
 docker build -t behavior-gap .
 docker run -p 8000:8000 behavior-gap      # open http://localhost:8000
 ```
 
-**Local development (two terminals):**
+**Local development (two terminals, without the launcher):**
 
 ```bash
 # backend (port 8000)
 cd backend
-python3 -m venv .venv && source .venv/bin/activate
+python -m venv .venv
+# Windows PowerShell:
+.\.venv\Scripts\Activate.ps1
+# macOS/Linux instead:
+# source .venv/bin/activate
 pip install -r requirements-dev.txt
 uvicorn app.api.main:app --reload --port 8000
 
 # frontend (port 5181; calls http://localhost:8000, see frontend/.env)
-cd frontend
+cd ../frontend
 npm install
 npm run dev
 ```
@@ -196,24 +208,36 @@ API: `GET /api/health`, `GET /api/meta`, `GET /api/default` (precalculado, insta
 
 ### Cómo correrlo
 
-**Docker (un comando después del build):**
+**Windows, sin Docker (recomendado para esta copia):** desde la raíz del repositorio, corre:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\run-app.ps1
+```
+
+El lanzador crea el entorno virtual del backend, instala las dependencias de Python, instala Node.js LTS mediante `winget` si hace falta, compila el frontend en la primera ejecución e inicia la app en http://localhost:8000. Deja abierta la ventana de PowerShell mientras usas la app; presiona **Ctrl+C** allí para detenerla.
+
+**Docker (opcional):**
 
 ```bash
 docker build -t behavior-gap .
 docker run -p 8000:8000 behavior-gap      # abrir http://localhost:8000
 ```
 
-**Desarrollo local (dos terminales):**
+**Desarrollo local (dos terminales, sin el lanzador):**
 
 ```bash
 # backend (puerto 8000)
 cd backend
-python3 -m venv .venv && source .venv/bin/activate
+python -m venv .venv
+# Windows PowerShell:
+.\.venv\Scripts\Activate.ps1
+# En macOS/Linux:
+# source .venv/bin/activate
 pip install -r requirements-dev.txt
 uvicorn app.api.main:app --reload --port 8000
 
 # frontend (puerto 5181; llama a http://localhost:8000, ver frontend/.env)
-cd frontend
+cd ../frontend
 npm install
 npm run dev
 ```
